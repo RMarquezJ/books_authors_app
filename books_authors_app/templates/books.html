@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Books</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/style.css' %}">
+  </head>
+  <body id='body' class="bg-light">
+    <div class="container text-dark">
+      <h1 class=" text-center mt-5 border-bottom border-success border-3">Books</h1>
+      <table class="table text-dark">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for book in books%}
+          <tr>
+            <th scope="row">{{book.id}}</th>
+            <td>{{book.title}}</td>
+            <td><a href="/books/book/{{book.id}}">view</a>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <h2 class="text-center">Add a Book</h2>
+      <form action='/books/createbook' method="post">
+        {%csrf_token%}
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Title</label>
+          <input type="text" class="form-control" name="tit" aria-describedby="emailHelp" placeholder="Book title" required>
+        </div>
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Description</label>
+          <input type="text" class="form-control" name="des" aria-describedby="emailHelp" placeholder="Book description" required>
+        <button type="submit" class="btn btn-primary my-3">Add</button>
+      </form>
+      <h1 class=" text-center mt-5 border-bottom border-success border-3">Authors</h1>
+      <table class="table text-dark">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for author in authors%}
+          <tr>
+            <th scope="row">{{author.id}}</th>
+            <td>{{author.first_name}} {{author.last_name}}</td>
+            <td><a href="/books/author/{{author.id}}">view</a>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <h2 class="text-center">Add an author</h2>
+      <form action='/books/addauthor' method="post">
+        {%csrf_token%}
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">First name</label>
+          <input type="text" class="form-control" name="firstname" aria-describedby="emailHelp" placeholder="Author's first name" required>
+        </div>
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Last name</label>
+          <input type="text" class="form-control" name="lastname" aria-describedby="emailHelp" placeholder="Author's last name" required>
+        <button type="submit" class="btn btn-primary my-3">Add</button>
+      </form> 
+    </div>
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>

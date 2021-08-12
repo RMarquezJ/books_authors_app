@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Movies</title>
+  </head>
+  <body class="bg-dark">
+    {% load static %}
+    <div class="container text-success">
+      <h1 class=" text-center mt-5 border-bottom border-success border-3">Películas</h1>
+      <table class="table text-white">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Año</th>
+            <th scope="col">Duración</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for movie in movies %}
+          <tr>
+            <th scope="row">{{movie.title}}</th>
+            <td>{{movie.description}}</td>
+            <td>{{movie.release_date.year}}</td>
+            <td>{{movie.duration}} min.</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      <h1 class="text-center">Añadir película</h1>
+      <form action='/create' method="post">
+        {%csrf_token%}
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Título</label>
+          <input type="text" class="form-control" name="tit" aria-describedby="emailHelp" placeholder="Título" required>
+        </div>
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Año</label>
+          <input type="date" class="form-control" name="yea" aria-describedby="emailHelp" placeholder="Fecha de estreno" required>
+        </div>
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Duración</label>
+          <input type="number" class="form-control" name="dur" aria-describedby="emailHelp" placeholder="Duración en minutos" required>
+        </div>
+        <div class="form-group my-2">
+          <label for="exampleInputEmail1">Descripcion</label>
+          <input type="text" class="form-control" name="des" aria-describedby="emailHelp" placeholder="Duración en minutos" required>
+        </div>
+        <button type="submit" class="btn btn-primary my-3">Ingresar Película</button>
+      </form>
+    </div>
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>
